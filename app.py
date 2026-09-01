@@ -220,7 +220,7 @@ with st.sidebar:
     # Model Selector
     model_choice = st.selectbox(
         "Generation Model",
-        options=["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"],
+        options=["gemini-3.6-flash", "gemini-2.5-flash", "gemini-1.5-flash"],
         index=0,
         help="Gemini Flash models offer high reasoning speed and accurate grounding."
     )

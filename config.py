@@ -35,7 +35,7 @@ SIMILARITY_DISTANCE_THRESHOLD = 0.70  # Max cosine distance (similarity >= 0.30)
 MIN_SIMILARITY_SCORE = 0.30  # Minimum similarity score required
 
 # LLM Generation Configuration
-# Default to Google Gemini Flash (high quality, free tier friendly)
-DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
+# Default to Google Gemini Flash (high quality, fast response)
+DEFAULT_GEMINI_MODEL = "gemini-3.6-flash"
 DEFAULT_TEMPERATURE = 0.2  # Low temperature for strict factual grounding
 MAX_OUTPUT_TOKENS = 1024
