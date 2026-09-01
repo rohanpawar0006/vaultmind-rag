@@ -202,21 +202,31 @@ with st.sidebar:
 
     # API Key Configuration
     st.markdown("### 🔑 **API Configuration**")
-    env_key = os.getenv("GEMINI_API_KEY", "")
-    if not env_key:
-        try:
-            if "GEMINI_API_KEY" in st.secrets:
-                env_key = str(st.secrets["GEMINI_API_KEY"]).strip()
-        except Exception:
-            pass
+    server_key_present = False
+    try:
+        if os.getenv("GEMINI_API_KEY") or ("GEMINI_API_KEY" in st.secrets and st.secrets["GEMINI_API_KEY"]):
+            server_key_present = True
+    except Exception:
+        pass
 
-    api_key_input = st.text_input(
-        "Google Gemini API Key",
-        value=env_key,
-        type="password",
-        placeholder="AIzaSy...",
-        help="Get a free Gemini API key from https://aistudio.google.com/app/apikey"
-    )
+    if server_key_present:
+        st.caption("🟢 **AI Synthesis Active** *(Configured via Secrets)*")
+        api_key_input = st.text_input(
+            "Custom Gemini API Key (Optional)",
+            value="",
+            type="password",
+            placeholder="Leave empty to use server key...",
+            help="A server key is active. Enter a custom key only if you wish to override it."
+        )
+    else:
+        st.caption("⚡ **Local Offline RAG Mode** *(No key required)*")
+        api_key_input = st.text_input(
+            "Google Gemini API Key (Optional)",
+            value="",
+            type="password",
+            placeholder="AIzaSy... (Optional)",
+            help="Get a free Gemini API key from https://aistudio.google.com/app/apikey or leave blank for offline mode."
+        )
     
     # Model Selector
     model_choice = st.selectbox(
