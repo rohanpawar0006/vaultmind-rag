@@ -2,6 +2,8 @@
 
 > An intelligent, strictly-grounded Retrieval-Augmented Generation (RAG) assistant designed for personal **Obsidian** vaults. Ask natural-language questions across hundreds of interconnected notes and receive accurate answers with verifiable source citations.
 
+🔗 **Live Demo**: [https://vaultmind-rag.streamlit.app/](https://vaultmind-rag.streamlit.app/)
+
 ---
 
 ## 🏗️ Architecture & Pipeline

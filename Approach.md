@@ -1,5 +1,8 @@
 # Approach and Technologies Used — VaultMind-RAG
 
+- **Live Application URL**: [https://vaultmind-rag.streamlit.app/](https://vaultmind-rag.streamlit.app/)
+- **GitHub Repository**: [https://github.com/rohanpawar0006/vaultmind-rag](https://github.com/rohanpawar0006/vaultmind-rag)
+
 ## 1. Problem & Product Approach
 Obsidian users build extensive personal knowledge graphs over months and years. However, standard search utilities (Ctrl+F, tagging, graph view) fail when users want to synthesize cross-note concepts or ask natural-language questions.
 
