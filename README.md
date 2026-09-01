@@ -36,25 +36,25 @@ Personal knowledge management (PKM) users in Obsidian accumulate hundreds of mar
 
 ```mermaid
 flowchart TD
-    subgraph Ingestion [1. Ingestion & Indexing]
-        A[User Uploads .zip or Selects Sample Vault] --> B[Markdown Sanitizer]
-        B -->|Strip YAML Frontmatter & Clean [[Wikilinks]]| C[Sliding-Window Chunker]
-        C -->|~500 tokens, 50-token overlap| D[Sentence-Transformers all-MiniLM-L6-v2]
-        D -->|384-d normalized vectors| E[(ChromaDB Persistent Store)]
+    subgraph Ingestion ["1. Ingestion & Indexing"]
+        A["User Uploads .zip or Selects Sample Vault"] --> B["Markdown Sanitizer"]
+        B -->|"Strip YAML Frontmatter & Resolve Wikilinks"| C["Sliding-Window Chunker"]
+        C -->|"~500 tokens, 50-token overlap"| D["Sentence-Transformers all-MiniLM-L6-v2"]
+        D -->|"384-d normalized vectors"| E[("ChromaDB Persistent Store")]
     end
 
-    subgraph Retrieval [2. Vector Retrieval]
-        F[User Question in Chat UI] --> G[Query Embedding]
-        G --> H[ChromaDB Cosine Similarity Search Top-K]
-        H --> I{Similarity >= 0.30?}
+    subgraph Retrieval ["2. Vector Retrieval"]
+        F["User Question in Chat UI"] --> G["Query Embedding"]
+        G --> H["ChromaDB Cosine Similarity Search Top-K"]
+        H --> I{"Similarity >= 0.30?"}
     end
 
-    subgraph Generation [3. Generation & Grounding]
-        I -->|No / Irrelevant| J[Instant Fallback: 'I couldn't find anything relevant']
-        I -->|Yes| K[XML-Demarcated Context Injection]
-        K --> L[Strict Grounding Prompt]
-        L --> M[Google Gemini Flash / Local Extractive Engine]
-        M --> N[Synthesized Grounded Answer + Source Chips]
+    subgraph Generation ["3. Generation & Grounding"]
+        I -->|"No / Irrelevant"| J["Instant Fallback: Not Found"]
+        I -->|"Yes"| K["XML-Demarcated Context Injection"]
+        K --> L["Strict Grounding Prompt"]
+        L --> M["Google Gemini Flash / Local Extractive Engine"]
+        M --> N["Synthesized Grounded Answer + Source Chips"]
     end
 ```
 
