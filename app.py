@@ -202,6 +202,13 @@ with st.sidebar:
     # API Key Configuration
     st.markdown("### 🔑 **API Configuration**")
     env_key = os.getenv("GEMINI_API_KEY", "")
+    if not env_key:
+        try:
+            if "GEMINI_API_KEY" in st.secrets:
+                env_key = str(st.secrets["GEMINI_API_KEY"]).strip()
+        except Exception:
+            pass
+
     api_key_input = st.text_input(
         "Google Gemini API Key",
         value=env_key,

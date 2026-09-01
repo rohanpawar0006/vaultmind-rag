@@ -213,6 +213,14 @@ def ask_vault(
     # 3. Obtain API key
     active_key = api_key or os.getenv("GEMINI_API_KEY")
     if not active_key:
+        try:
+            import streamlit as st
+            if "GEMINI_API_KEY" in st.secrets:
+                active_key = str(st.secrets["GEMINI_API_KEY"]).strip()
+        except Exception:
+            pass
+
+    if not active_key:
         # If no API key is provided, return context chunks preview with note explaining how to add API key
         context_preview = "\n\n".join([f"**From [[{s['source']}]]**:\n> {s['snippet']}" for s in unique_sources])
         return {
