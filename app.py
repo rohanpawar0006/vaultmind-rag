@@ -165,12 +165,13 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # -----------------------------------------------------------------------------
 # 2. Vector Store & State Initialization
 # -----------------------------------------------------------------------------
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def get_cached_vector_store():
-    """Initializes and caches the persistent ChromaDB Vector Store."""
+    """Initializes and caches the persistent ChromaDB Vector Store & Embedding Model."""
     return get_vector_store()
 
-vs = get_cached_vector_store()
+with st.spinner("🧠 Warming up VaultMind engine and local embedding model..."):
+    vs = get_cached_vector_store()
 
 # Initialize session state variables
 if "messages" not in st.session_state:
@@ -180,7 +181,7 @@ if "indexed" not in st.session_state:
     # Auto-index sample vault on first startup if vector store is empty
     stats = vs.get_stats()
     if stats["total_chunks"] == 0 and SAMPLE_VAULT_DIR.exists():
-        with st.spinner("Initializing sample vault knowledge base..."):
+        with st.spinner("📚 Indexing bundled sample vault (first run setup)..."):
             chunks = load_notes_from_directory(SAMPLE_VAULT_DIR)
             vs.add_chunks(chunks)
             st.session_state.indexed = True
